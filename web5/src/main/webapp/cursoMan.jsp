@@ -21,36 +21,45 @@
     <title>Mantenimiento de Cursos! <%=nombre %></title>
 </head>
 <body>
+<jsp:include page="master.jsp" />
 
-<div class="container" style="margin-top:70px;">
-    <div class="row">
+<div class="container mt-4">
+    <h1>Mantenimiento de Cursos</h1>
+    <div class="mb-3">
+        <a href="cursoInsertar.jsp" class="btn btn-success">
+            <i class="fas fa-plus"></i> Nuevo Curso
+        </a>
+    </div>
 
-        <jsp:include page="master.jsp" />
-
-        <h1>Mantenimiento de Cursos!</h1>
-        <div style="padding: 10px;">
-            <button class="btn btn-danger"><a class="nav-link link-light" aria-current="page"
-                                              href="cursoInsertar.jsp"> Nuevo Curso</a></button>
-        </div>
-
-        <table class="table table-dark table-hover">
-            <tr align="center">
-                <th>CODIGO</th>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>CÓDIGO</th>
                 <th>NOMBRE</th>
-                <th>CREDITOS</th>
+                <th>CRÉDITOS</th>
+                <th>ACCIONES</th>
             </tr>
+        </thead>
+        <tbody>
             <% for (Curso curso : servicio.listar()) { %>
             <tr>
                 <td><%=curso.getCodigo() %></td>
                 <td><%=curso.getNombre() %></td>
                 <td><%=curso.getCreditos() %></td>
-                <td><a class="btn btn-warning" href="cursoActualizar.jsp?id=<%=curso.getCodigo() %>">
-                    <i class="fa-solid fa-trash"></i>Borrar</a>
-                    <a class="btn btn-danger" href="cursoEliminar.jsp?id=<%=curso.getCodigo() %>">
-                        <i class="fa-solid fa-pencil"></i>Actualizar</a></td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="cursoActualizar.jsp?id=<%=curso.getCodigo() %>">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a class="btn btn-sm btn-danger" href="cursoEliminar.jsp?id=<%=curso.getCodigo() %>">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </a>
+                </td>
             </tr>
             <% } %>
-        </table>
-    </div></div></body>
+        </tbody>
+    </table>
+</div>
+
+</body>
 <% } %>
 </html>

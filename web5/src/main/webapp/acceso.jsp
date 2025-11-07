@@ -12,9 +12,6 @@
 
     <!--Fontawesome CDN-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-
-    <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="css/estilos.css">
 </head>
 <body>
 <div class="container">

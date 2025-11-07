@@ -20,18 +20,18 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Distrito Eliminar - <%=nombre %> </title>
+    <title>Curso Eliminar - <%=nombre %> </title>
 </head>
 <body>
 
 <jsp:include page="master.jsp" />
 
-<div class="container p-4" style="margin-top:70px;">
+<div class="container p-4">
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="card text-center">
                 <div class="card-header">
-                    <h3 class="text-uppercase">ACTUALIZAR CLIENTE</h3>
+                    <h3 class="text-uppercase">ELIMINAR CURSO</h3>
                 </div>
                 <div class="card-body">
                     <form action="cController">

@@ -20,7 +20,7 @@
 
 <jsp:include page="master.jsp" />
 
-<div class="container p-4" style="margin-top:70px;">
+<div class="container p-4">
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="card text-center">

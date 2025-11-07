@@ -3,11 +3,11 @@ package com.tecsup.demo.controllers;
 import com.tecsup.demo.model.entities.Curso;
 import com.tecsup.demo.services.CursoService;
 import com.tecsup.demo.services.impl.CursoServiceImpl;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "CursoController", urlPatterns = {"/cController", "/curso", "/cursoController"})

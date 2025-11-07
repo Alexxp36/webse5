@@ -1,0 +1,5 @@
+package com.tecsup.demo.util;
+
+public enum Tipo {
+    MEM, PST, CST
+}

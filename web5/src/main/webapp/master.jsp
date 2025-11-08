@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
     body {
         padding-top: 80px;
@@ -33,22 +34,39 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle link-light" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Gestión Docente
+                        <i class="fas fa-graduation-cap"></i> Matrículas
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Docentes</a></li>
-                        <li><a class="dropdown-item" href="#">Especialidad</a></li>
+                        <li><a class="dropdown-item" href="matricula?accion=listar">Gestión de Matrículas</a></li>
+                        <li><a class="dropdown-item" href="matricula?accion=nuevo">Nueva Matrícula</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Periodos Académicos</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle link-light" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Gestión Alumnos
+                        <i class="fas fa-clipboard-list"></i> Notas
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Alumnos</a></li>
-                        <li><a class="dropdown-item" href="#">Apoderado</a></li>
+                        <li><a class="dropdown-item" href="nota?accion=listar">Gestión de Notas</a></li>
+                        <li><a class="dropdown-item" href="nota?accion=registrar">Registrar Nota</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="nota?accion=evaluaciones">Evaluaciones</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle link-light" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="fas fa-calendar-check"></i> Asistencia
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="asistencia?accion=listar">Gestión de Asistencias</a></li>
+                        <li><a class="dropdown-item" href="asistencia?accion=sesiones">Sesiones de Clase</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="asistencia?accion=nuevaSesion">Nueva Sesión</a></li>
                     </ul>
                 </li>
             </ol>

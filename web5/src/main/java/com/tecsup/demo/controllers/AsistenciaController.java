@@ -80,7 +80,7 @@ public class AsistenciaController extends HttpServlet {
 
     private void listarAsistencias(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Asistencia> asistencias = asistenciaDao.findAll();
+        List<AsistenciaDetallada> asistencias = asistenciaDao.findAllDetallado();
         request.setAttribute("asistencias", asistencias);
         request.getRequestDispatcher("/views/asistencia/listar.jsp").forward(request, response);
     }
@@ -163,7 +163,7 @@ public class AsistenciaController extends HttpServlet {
         try {
             int idSesion = Integer.parseInt(request.getParameter("idSesion"));
             SesionClase sesion = sesionDao.find(idSesion);
-            List<Asistencia> asistencias = asistenciaDao.findBySesion(idSesion);
+            List<AsistenciaDetallada> asistencias = asistenciaDao.findDetalladoBySesion(idSesion);
 
             request.setAttribute("sesion", sesion);
             request.setAttribute("asistencias", asistencias);
@@ -192,15 +192,15 @@ public class AsistenciaController extends HttpServlet {
     private void gestionarSesiones(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idCurso = request.getParameter("idCurso");
-        List<SesionClase> sesiones;
 
         if (idCurso != null && !idCurso.isEmpty()) {
-            sesiones = sesionDao.findByCurso(idCurso);
+            List<SesionClase> sesiones = sesionDao.findByCurso(idCurso);
+            request.setAttribute("sesiones", sesiones);
         } else {
-            sesiones = sesionDao.findAll();
+            List<SesionClaseDetallada> sesiones = sesionDao.findAllDetallado();
+            request.setAttribute("sesiones", sesiones);
         }
 
-        request.setAttribute("sesiones", sesiones);
         request.getRequestDispatcher("/views/asistencia/sesiones.jsp").forward(request, response);
     }
 

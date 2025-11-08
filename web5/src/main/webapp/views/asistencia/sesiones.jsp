@@ -1,4 +1,5 @@
-<%@ page import="com.tecsup.demo.model.entities.*" %>
+<%@ page import="com.tecsup.demo.model.entities.SesionClase" %>
+<%@ page import="com.tecsup.demo.model.entities.SesionClaseDetallada" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,10 +25,15 @@
     </div>
 
     <%
-        List<SesionClase> sesiones = (List<SesionClase>) request.getAttribute("sesiones");
+        Object sesionesObj = request.getAttribute("sesiones");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        boolean hayDatos = false;
 
-        if (sesiones != null && !sesiones.isEmpty()) {
+        if (sesionesObj instanceof List) {
+            List<?> sesiones = (List<?>) sesionesObj;
+            hayDatos = !sesiones.isEmpty();
+
+            if (hayDatos) {
     %>
 
     <table class="table table-striped table-hover">
@@ -42,7 +48,33 @@
             </tr>
         </thead>
         <tbody>
-            <% for (SesionClase sesion : sesiones) { %>
+            <%
+                for (Object obj : sesiones) {
+                    if (obj instanceof SesionClaseDetallada) {
+                        SesionClaseDetallada sesion = (SesionClaseDetallada) obj;
+            %>
+            <tr>
+                <td><%=sesion.getIdSesion() %></td>
+                <td>
+                    <span class="badge bg-primary"><%=sesion.getIdCurso() %></span><br>
+                    <small><%=sesion.getNombreCurso() %></small>
+                </td>
+                <td><span class="badge bg-info"><%=sesion.getNombrePeriodo() %></span></td>
+                <td><%=sdf.format(sesion.getFecha()) %></td>
+                <td><%=sesion.getTema() %></td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="asistencia?accion=verPorSesion&idSesion=<%=sesion.getIdSesion() %>">
+                        <i class="fas fa-list"></i> Ver Asistencias
+                    </a>
+                    <a class="btn btn-sm btn-success" href="asistencia?accion=registrar&idSesion=<%=sesion.getIdSesion() %>">
+                        <i class="fas fa-check"></i> Registrar
+                    </a>
+                </td>
+            </tr>
+            <%
+                    } else if (obj instanceof SesionClase) {
+                        SesionClase sesion = (SesionClase) obj;
+            %>
             <tr>
                 <td><%=sesion.getIdSesion() %></td>
                 <td><%=sesion.getIdCurso() %></td>
@@ -58,11 +90,19 @@
                     </a>
                 </td>
             </tr>
-            <% } %>
+            <%
+                    }
+                }
+            %>
         </tbody>
     </table>
 
-    <% } else { %>
+    <%
+            }
+        }
+
+        if (!hayDatos) {
+    %>
         <div class="alert alert-info">
             <i class="fas fa-info-circle"></i> No hay sesiones registradas.
         </div>

@@ -1,5 +1,6 @@
-<%@ page import="com.tecsup.demo.model.entities.*" %>
+<%@ page import="com.tecsup.demo.model.entities.AsistenciaDetallada" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,8 @@
     </div>
 
     <%
-        List<Asistencia> asistencias = (List<Asistencia>) request.getAttribute("asistencias");
+        List<AsistenciaDetallada> asistencias = (List<AsistenciaDetallada>) request.getAttribute("asistencias");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (asistencias != null && !asistencias.isEmpty()) {
     %>
 
@@ -28,23 +30,36 @@
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>ID SESIÓN</th>
-                <th>ID DETALLE</th>
+                <th>ALUMNO</th>
+                <th>CURSO</th>
+                <th>SESIÓN</th>
+                <th>FECHA</th>
                 <th>ESTADO</th>
                 <th>ACCIONES</th>
             </tr>
         </thead>
         <tbody>
-            <% for (Asistencia asistencia : asistencias) {
+            <% for (AsistenciaDetallada asistencia : asistencias) {
                 String badgeColor = "secondary";
                 if (asistencia.getEstado().equals("asistio")) badgeColor = "success";
                 else if (asistencia.getEstado().equals("tardanza")) badgeColor = "warning";
                 else if (asistencia.getEstado().equals("falta")) badgeColor = "danger";
+                else if (asistencia.getEstado().equals("justificada")) badgeColor = "info";
             %>
             <tr>
                 <td><%=asistencia.getIdAsistencia() %></td>
-                <td><%=asistencia.getIdSesion() %></td>
-                <td><%=asistencia.getIdDetalle() %></td>
+                <td>
+                    <strong><%=asistencia.getNombreCompletoAlumno() %></strong><br>
+                    <small class="text-muted"><%=asistencia.getCodigoAlumno() %></small>
+                </td>
+                <td>
+                    <span class="badge bg-primary"><%=asistencia.getCodigoCurso() %></span><br>
+                    <small><%=asistencia.getNombreCurso() %></small>
+                </td>
+                <td>
+                    <small><%=asistencia.getTemaSesion() %></small>
+                </td>
+                <td><%=sdf.format(asistencia.getFechaSesion()) %></td>
                 <td>
                     <span class="badge bg-<%=badgeColor%>">
                         <%=asistencia.getEstado().toUpperCase() %>

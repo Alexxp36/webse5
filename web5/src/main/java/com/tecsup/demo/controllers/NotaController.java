@@ -72,7 +72,7 @@ public class NotaController extends HttpServlet {
 
     private void listarNotas(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Nota> notas = notaDao.findAll();
+        List<NotaDetallada> notas = notaDao.findAllDetallado();
         request.setAttribute("notas", notas);
         request.getRequestDispatcher("/views/nota/listar.jsp").forward(request, response);
     }

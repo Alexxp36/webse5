@@ -1,4 +1,4 @@
-<%@ page import="com.tecsup.demo.model.entities.*" %>
+<%@ page import="com.tecsup.demo.model.entities.NotaDetallada" %>
 <%@ page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
     </div>
 
     <%
-        List<Nota> notas = (List<Nota>) request.getAttribute("notas");
+        List<NotaDetallada> notas = (List<NotaDetallada>) request.getAttribute("notas");
         if (notas != null && !notas.isEmpty()) {
     %>
 
@@ -31,19 +31,30 @@
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>ID DETALLE</th>
-                <th>ID EVALUACIÓN</th>
+                <th>ALUMNO</th>
+                <th>CURSO</th>
+                <th>EVALUACIÓN</th>
                 <th>NOTA</th>
                 <th>ACCIONES</th>
             </tr>
         </thead>
         <tbody>
-            <% for (Nota nota : notas) { %>
+            <% for (NotaDetallada nota : notas) { %>
             <tr>
                 <td><%=nota.getIdNota() %></td>
-                <td><%=nota.getIdDetalle() %></td>
-                <td><%=nota.getIdEvaluacion() %></td>
-                <td><strong><%=String.format("%.2f", nota.getNota()) %></strong></td>
+                <td>
+                    <strong><%=nota.getNombreCompletoAlumno() %></strong><br>
+                    <small class="text-muted"><%=nota.getCodigoAlumno() %></small>
+                </td>
+                <td>
+                    <span class="badge bg-primary"><%=nota.getCodigoCurso() %></span><br>
+                    <small><%=nota.getNombreCurso() %></small>
+                </td>
+                <td>
+                    <%=nota.getNombreEvaluacion() %><br>
+                    <small class="text-muted">(Peso: <%=String.format("%.0f%%", nota.getPesoEvaluacion()) %>)</small>
+                </td>
+                <td><strong class="text-success"><%=String.format("%.2f", nota.getNota()) %></strong></td>
                 <td>
                     <button class="btn btn-sm btn-primary" onclick="editarNota(<%=nota.getIdNota() %>, <%=nota.getNota() %>)">
                         <i class="fas fa-edit"></i> Editar

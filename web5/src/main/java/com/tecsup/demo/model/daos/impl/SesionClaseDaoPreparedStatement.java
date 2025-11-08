@@ -2,6 +2,7 @@ package com.tecsup.demo.model.daos.impl;
 
 import com.tecsup.demo.model.daos.SesionClaseDao;
 import com.tecsup.demo.model.entities.SesionClase;
+import com.tecsup.demo.model.entities.SesionClaseDetallada;
 import com.tecsup.demo.util.DBConn;
 
 import java.sql.Connection;
@@ -146,6 +147,35 @@ public class SesionClaseDaoPreparedStatement implements SesionClaseDao {
             }
         } catch (SQLException e) {
             System.out.println("Error en la consulta: " + e.getMessage());
+        }
+        return sesiones;
+    }
+
+    @Override
+    public List<SesionClaseDetallada> findAllDetallado() {
+        List<SesionClaseDetallada> sesiones = new ArrayList<>();
+        try {
+            Connection con = DBConn.getConnection();
+            String sql = "SELECT s.idSesion, s.idCurso, c.vchCurNombre, s.idPeriodo, p.nombrePeriodo, s.fecha, s.tema " +
+                        "FROM SesionClase s " +
+                        "INNER JOIN Curso c ON s.idCurso = c.chrCurCodigo " +
+                        "INNER JOIN PeriodoAcademico p ON s.idPeriodo = p.idPeriodo " +
+                        "ORDER BY s.fecha DESC";
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                SesionClaseDetallada sesion = new SesionClaseDetallada();
+                sesion.setIdSesion(rs.getInt("idSesion"));
+                sesion.setIdCurso(rs.getString("idCurso"));
+                sesion.setNombreCurso(rs.getString("vchCurNombre"));
+                sesion.setIdPeriodo(rs.getInt("idPeriodo"));
+                sesion.setNombrePeriodo(rs.getString("nombrePeriodo"));
+                sesion.setFecha(rs.getDate("fecha"));
+                sesion.setTema(rs.getString("tema"));
+                sesiones.add(sesion);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en la consulta detallada: " + e.getMessage());
         }
         return sesiones;
     }

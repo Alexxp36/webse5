@@ -9,7 +9,7 @@ public class DBConn {
     private static String driver = "com.mysql.cj.jdbc.Driver";
     private static String usuario = "root";
     private static String password = "";
-    private static String url = "jdbc:mysql://localhost:3306/escuela";
+    private static String url = "jdbc:mysql://localhost:3306/sistema_academico";
 
     static{
         try{

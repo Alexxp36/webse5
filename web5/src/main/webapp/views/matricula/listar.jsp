@@ -1,4 +1,4 @@
-<%@ page import="com.tecsup.demo.model.entities.*" %>
+<%@ page import="com.tecsup.demo.model.entities.MatriculaDetallada" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,7 +21,7 @@
     </div>
 
     <%
-        List<Matricula> matriculas = (List<Matricula>) request.getAttribute("matriculas");
+        List<MatriculaDetallada> matriculas = (List<MatriculaDetallada>) request.getAttribute("matriculas");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         if (matriculas != null && !matriculas.isEmpty()) {
@@ -31,19 +31,21 @@
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>ID ALUMNO</th>
-                <th>ID PERIODO</th>
+                <th>ALUMNO</th>
+                <th>CÓDIGO</th>
+                <th>PERIODO</th>
                 <th>FECHA MATRÍCULA</th>
                 <th>ESTADO</th>
                 <th>ACCIONES</th>
             </tr>
         </thead>
         <tbody>
-            <% for (Matricula matricula : matriculas) { %>
+            <% for (MatriculaDetallada matricula : matriculas) { %>
             <tr>
                 <td><%=matricula.getIdMatricula() %></td>
-                <td><%=matricula.getIdAlumno() %></td>
-                <td><%=matricula.getIdPeriodo() %></td>
+                <td><strong><%=matricula.getNombreCompleto() %></strong></td>
+                <td><small class="text-muted"><%=matricula.getIdAlumno() %></small></td>
+                <td><span class="badge bg-info"><%=matricula.getNombrePeriodo() %></span></td>
                 <td><%=sdf.format(matricula.getFechaMatricula()) %></td>
                 <td>
                     <span class="badge bg-<%=matricula.getEstado().equals("activo") ? "success" : "secondary"%>">

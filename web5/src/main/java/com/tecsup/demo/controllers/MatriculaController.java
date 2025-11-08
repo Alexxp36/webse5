@@ -74,7 +74,7 @@ public class MatriculaController extends HttpServlet {
 
     private void listarMatriculas(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Matricula> matriculas = matriculaDao.findAll();
+        List<MatriculaDetallada> matriculas = matriculaDao.findAllDetallado();
         request.setAttribute("matriculas", matriculas);
         request.getRequestDispatcher("/views/matricula/listar.jsp").forward(request, response);
     }
@@ -175,8 +175,8 @@ public class MatriculaController extends HttpServlet {
             throws ServletException, IOException {
         try {
             int idMatricula = Integer.parseInt(request.getParameter("id"));
-            Matricula matricula = matriculaDao.find(idMatricula);
-            List<DetalleMatricula> detalles = detalleDao.findByMatricula(idMatricula);
+            MatriculaDetallada matricula = matriculaDao.findDetalladoById(idMatricula);
+            List<DetalleMatriculaDetallado> detalles = detalleDao.findDetalladoByMatricula(idMatricula);
 
             request.setAttribute("matricula", matricula);
             request.setAttribute("detalles", detalles);

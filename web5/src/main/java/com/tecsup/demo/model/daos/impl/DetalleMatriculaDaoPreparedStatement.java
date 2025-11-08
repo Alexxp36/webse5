@@ -2,6 +2,7 @@ package com.tecsup.demo.model.daos.impl;
 
 import com.tecsup.demo.model.daos.DetalleMatriculaDao;
 import com.tecsup.demo.model.entities.DetalleMatricula;
+import com.tecsup.demo.model.entities.DetalleMatriculaDetallado;
 import com.tecsup.demo.util.DBConn;
 
 import java.sql.Connection;
@@ -135,6 +136,35 @@ public class DetalleMatriculaDaoPreparedStatement implements DetalleMatriculaDao
                 detalle.setIdDetalle(rs.getInt("idDetalle"));
                 detalle.setIdMatricula(rs.getInt("idMatricula"));
                 detalle.setIdCurso(rs.getString("idCurso"));
+                detalle.setEstado(rs.getString("estado"));
+                detalles.add(detalle);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en la consulta: " + e.getMessage());
+        }
+        return detalles;
+    }
+
+    @Override
+    public List<DetalleMatriculaDetallado> findDetalladoByMatricula(int idMatricula) {
+        List<DetalleMatriculaDetallado> detalles = new ArrayList<>();
+        try {
+            Connection con = DBConn.getConnection();
+            String sql = "SELECT dm.idDetalle, dm.idMatricula, dm.idCurso, c.vchCurNombre, " +
+                        "c.intCurCreditos, dm.estado " +
+                        "FROM DetalleMatricula dm " +
+                        "INNER JOIN Curso c ON dm.idCurso = c.chrCurCodigo " +
+                        "WHERE dm.idMatricula = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, idMatricula);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                DetalleMatriculaDetallado detalle = new DetalleMatriculaDetallado();
+                detalle.setIdDetalle(rs.getInt("idDetalle"));
+                detalle.setIdMatricula(rs.getInt("idMatricula"));
+                detalle.setIdCurso(rs.getString("idCurso"));
+                detalle.setNombreCurso(rs.getString("vchCurNombre"));
+                detalle.setCreditos(rs.getInt("intCurCreditos"));
                 detalle.setEstado(rs.getString("estado"));
                 detalles.add(detalle);
             }

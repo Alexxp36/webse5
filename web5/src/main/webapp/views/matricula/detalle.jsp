@@ -1,4 +1,5 @@
-<%@ page import="com.tecsup.demo.model.entities.*" %>
+<%@ page import="com.tecsup.demo.model.entities.MatriculaDetallada" %>
+<%@ page import="com.tecsup.demo.model.entities.DetalleMatriculaDetallado" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,8 +14,8 @@
 
 <div class="container mt-4">
     <%
-        Matricula matricula = (Matricula) request.getAttribute("matricula");
-        List<DetalleMatricula> detalles = (List<DetalleMatricula>) request.getAttribute("detalles");
+        MatriculaDetallada matricula = (MatriculaDetallada) request.getAttribute("matricula");
+        List<DetalleMatriculaDetallado> detalles = (List<DetalleMatriculaDetallado>) request.getAttribute("detalles");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         if (matricula != null) {
@@ -22,36 +23,48 @@
 
     <h1>Detalle de Matrícula #<%=matricula.getIdMatricula() %></h1>
 
-    <div class="card mb-4">
+    <div class="card mb-4 border-primary">
+        <div class="card-header bg-primary text-white">
+            <h5><i class="fas fa-user"></i> Información del Alumno</h5>
+        </div>
         <div class="card-body">
-            <p><strong>Alumno:</strong> <%=matricula.getIdAlumno() %></p>
-            <p><strong>Periodo:</strong> <%=matricula.getIdPeriodo() %></p>
-            <p><strong>Fecha Matrícula:</strong> <%=sdf.format(matricula.getFechaMatricula()) %></p>
-            <p><strong>Estado:</strong>
-                <span class="badge bg-<%=matricula.getEstado().equals("activo") ? "success" : "secondary"%>">
-                    <%=matricula.getEstado().toUpperCase() %>
-                </span>
-            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Alumno:</strong> <span class="text-primary fs-5"><%=matricula.getNombreCompleto() %></span></p>
+                    <p><strong>Código:</strong> <span class="badge bg-secondary"><%=matricula.getIdAlumno() %></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Periodo:</strong> <span class="badge bg-info"><%=matricula.getNombrePeriodo() %></span></p>
+                    <p><strong>Fecha Matrícula:</strong> <%=sdf.format(matricula.getFechaMatricula()) %></p>
+                    <p><strong>Estado:</strong>
+                        <span class="badge bg-<%=matricula.getEstado().equals("activo") ? "success" : "secondary"%>">
+                            <%=matricula.getEstado().toUpperCase() %>
+                        </span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <h3>Cursos Matriculados</h3>
+    <h3><i class="fas fa-book"></i> Cursos Matriculados</h3>
 
     <% if (detalles != null && !detalles.isEmpty()) { %>
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
         <thead class="table-dark">
             <tr>
-                <th>ID Detalle</th>
-                <th>Código Curso</th>
+                <th>Curso</th>
+                <th>Código</th>
+                <th>Créditos</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <% for (DetalleMatricula detalle : detalles) { %>
+            <% for (DetalleMatriculaDetallado detalle : detalles) { %>
             <tr>
-                <td><%=detalle.getIdDetalle() %></td>
-                <td><%=detalle.getIdCurso() %></td>
+                <td><strong><%=detalle.getNombreCurso() %></strong></td>
+                <td><span class="badge bg-secondary"><%=detalle.getIdCurso() %></span></td>
+                <td><span class="badge bg-primary"><%=detalle.getCreditos() %> créditos</span></td>
                 <td>
                     <span class="badge bg-<%=detalle.getEstado().equals("matriculado") ? "success" : "warning"%>">
                         <%=detalle.getEstado().toUpperCase() %>

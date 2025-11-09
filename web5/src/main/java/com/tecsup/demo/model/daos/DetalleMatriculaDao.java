@@ -8,4 +8,5 @@ public interface DetalleMatriculaDao extends EntidadDao<DetalleMatricula, Intege
     List<DetalleMatricula> findByMatricula(int idMatricula);
     List<DetalleMatricula> findByCurso(String idCurso);
     List<DetalleMatriculaDetallado> findDetalladoByMatricula(int idMatricula);
+    List<DetalleMatriculaDetallado> findAllDetallado();
 }

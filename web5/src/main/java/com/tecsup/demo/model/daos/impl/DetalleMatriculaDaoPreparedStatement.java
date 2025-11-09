@@ -173,4 +173,38 @@ public class DetalleMatriculaDaoPreparedStatement implements DetalleMatriculaDao
         }
         return detalles;
     }
+
+    @Override
+    public List<DetalleMatriculaDetallado> findAllDetallado() {
+        List<DetalleMatriculaDetallado> detalles = new ArrayList<>();
+        try {
+            Connection con = DBConn.getConnection();
+            String sql = "SELECT dm.idDetalle, dm.idMatricula, dm.idCurso, c.vchCurNombre, " +
+                        "c.intCurCreditos, dm.estado, a.chrAluCodigo, a.vchAluNombres, a.vchAluApellidos " +
+                        "FROM DetalleMatricula dm " +
+                        "INNER JOIN Curso c ON dm.idCurso = c.chrCurCodigo " +
+                        "INNER JOIN Matricula m ON dm.idMatricula = m.idMatricula " +
+                        "INNER JOIN Alumno a ON m.idAlumno = a.chrAluCodigo " +
+                        "WHERE dm.estado = 'activo' " +
+                        "ORDER BY a.vchAluApellidos, a.vchAluNombres, c.vchCurNombre";
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                DetalleMatriculaDetallado detalle = new DetalleMatriculaDetallado();
+                detalle.setIdDetalle(rs.getInt("idDetalle"));
+                detalle.setIdMatricula(rs.getInt("idMatricula"));
+                detalle.setIdCurso(rs.getString("idCurso"));
+                detalle.setNombreCurso(rs.getString("vchCurNombre"));
+                detalle.setCreditos(rs.getInt("intCurCreditos"));
+                detalle.setEstado(rs.getString("estado"));
+                detalle.setIdAlumno(rs.getString("chrAluCodigo"));
+                detalle.setNombreAlumno(rs.getString("vchAluNombres"));
+                detalle.setApellidoAlumno(rs.getString("vchAluApellidos"));
+                detalles.add(detalle);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en la consulta: " + e.getMessage());
+        }
+        return detalles;
+    }
 }

@@ -79,14 +79,11 @@ public class NotaController extends HttpServlet {
 
     private void mostrarFormulario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idDetalle = request.getParameter("idDetalle");
-        if (idDetalle != null) {
-            DetalleMatricula detalle = detalleDao.find(Integer.parseInt(idDetalle));
-            request.setAttribute("detalle", detalle);
-        }
-
         List<Evaluacion> evaluaciones = evaluacionDao.findAll();
+        List<DetalleMatriculaDetallado> detalles = detalleDao.findAllDetallado();
+
         request.setAttribute("evaluaciones", evaluaciones);
+        request.setAttribute("detalles", detalles);
         request.getRequestDispatcher("/views/nota/formulario.jsp").forward(request, response);
     }
 

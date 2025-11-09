@@ -10,6 +10,9 @@ public class DetalleMatriculaDetallado implements Serializable {
     private String nombreCurso;
     private int creditos;
     private String estado;
+    private String idAlumno;
+    private String nombreAlumno;
+    private String apellidoAlumno;
 
     public DetalleMatriculaDetallado() {
     }
@@ -60,5 +63,33 @@ public class DetalleMatriculaDetallado implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(String idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+
+    public String getNombreAlumno() {
+        return nombreAlumno;
+    }
+
+    public void setNombreAlumno(String nombreAlumno) {
+        this.nombreAlumno = nombreAlumno;
+    }
+
+    public String getApellidoAlumno() {
+        return apellidoAlumno;
+    }
+
+    public void setApellidoAlumno(String apellidoAlumno) {
+        this.apellidoAlumno = apellidoAlumno;
+    }
+
+    public String getNombreCompletoAlumno() {
+        return nombreAlumno + " " + apellidoAlumno;
     }
 }

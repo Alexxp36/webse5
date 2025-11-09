@@ -33,17 +33,29 @@
 
                         <div class="mb-3">
                             <label for="idDetalle" class="form-label">
-                                <i class="fas fa-user-graduate"></i> ID Detalle Matrícula (Alumno-Curso):
+                                <i class="fas fa-user-graduate"></i> Alumno - Curso:
                             </label>
-                            <input type="number"
-                                   class="form-control"
-                                   id="idDetalle"
-                                   name="idDetalle"
-                                   placeholder="Ingrese el ID del detalle de matrícula"
-                                   required>
-                            <small class="form-text text-muted">
-                                Este es el ID que relaciona un alumno con un curso específico en una matrícula.
-                            </small>
+                            <%
+                                List<DetalleMatriculaDetallado> detalles = (List<DetalleMatriculaDetallado>) request.getAttribute("detalles");
+                                if (detalles != null && !detalles.isEmpty()) {
+                            %>
+                                <select class="form-select" id="idDetalle" name="idDetalle" required>
+                                    <option value="">-- Seleccione alumno y curso --</option>
+                                    <% for (DetalleMatriculaDetallado det : detalles) { %>
+                                        <option value="<%=det.getIdDetalle() %>">
+                                            <%=det.getNombreCompletoAlumno() %> - <%=det.getNombreCurso() %>
+                                        </option>
+                                    <% } %>
+                                </select>
+                            <%
+                                } else {
+                            %>
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    No hay matrículas activas disponibles.
+                                    <a href="matricula?accion=listar">Crear matrículas primero</a>.
+                                </div>
+                            <% } %>
                         </div>
 
                         <div class="mb-3">
@@ -86,9 +98,6 @@
                                    max="20"
                                    placeholder="Ingrese la nota (0-20)"
                                    required>
-                            <small class="form-text text-muted">
-                                Ingrese un valor entre 0 y 20.
-                            </small>
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -103,22 +112,14 @@
                 </div>
             </div>
 
-            <!-- Ayuda adicional -->
+            <!-- Ayuda -->
             <div class="card mt-3">
-                <div class="card-header bg-info text-white">
-                    <h5><i class="fas fa-info-circle"></i> Ayuda</h5>
-                </div>
-                <div class="card-body">
-                    <p><strong>¿Cómo obtener el ID Detalle Matrícula?</strong></p>
-                    <ol>
-                        <li>Ve a <a href="matricula?accion=listar">Matrículas</a></li>
-                        <li>Selecciona "Ver Detalle" en la matrícula del alumno</li>
-                        <li>Verás la tabla de cursos - cada fila tiene un ID Detalle</li>
-                        <li>Usa ese ID aquí para registrar la nota del alumno en ese curso</li>
-                    </ol>
-
-                    <p class="mt-3"><strong>Recomendación:</strong></p>
-                    <p>Para una experiencia más fluida, es mejor registrar notas desde la vista de matrículas o desde la gestión de evaluaciones por curso.</p>
+                <div class="card-body bg-light">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i>
+                        Selecciona el alumno y curso, luego la evaluación correspondiente.
+                        Solo aparecen matrículas activas.
+                    </small>
                 </div>
             </div>
         </div>

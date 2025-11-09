@@ -117,8 +117,7 @@
                 <div class="card-body bg-light">
                     <small class="text-muted">
                         <i class="fas fa-info-circle"></i>
-                        Selecciona el alumno y curso, luego la evaluación correspondiente.
-                        Solo aparecen matrículas activas.
+                        Primero elige al alumno con su curso, después la evaluación que le vas a calificar. Solo salen las matrículas que están activas.
                     </small>
                 </div>
             </div>

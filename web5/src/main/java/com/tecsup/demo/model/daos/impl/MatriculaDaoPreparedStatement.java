@@ -26,8 +26,11 @@ public class MatriculaDaoPreparedStatement implements MatriculaDao {
             pst.setDate(3, new java.sql.Date(matricula.getFechaMatricula().getTime()));
             pst.setString(4, matricula.getEstado());
             pst.executeUpdate();
+            System.out.println("Matrícula insertada correctamente");
         } catch (SQLException e) {
-            System.out.println("Error en la inserción: " + e.getMessage());
+            System.out.println("Error en la inserción de matrícula: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Error al crear matrícula: " + e.getMessage(), e);
         }
     }
 

@@ -185,7 +185,7 @@ public class DetalleMatriculaDaoPreparedStatement implements DetalleMatriculaDao
                         "INNER JOIN Curso c ON dm.idCurso = c.chrCurCodigo " +
                         "INNER JOIN Matricula m ON dm.idMatricula = m.idMatricula " +
                         "INNER JOIN Alumno a ON m.idAlumno = a.chrAluCodigo " +
-                        "WHERE dm.estado = 'activo' " +
+                        "WHERE dm.estado = 'matriculado' AND m.estado = 'activo' " +
                         "ORDER BY a.vchAluApellidos, a.vchAluNombres, c.vchCurNombre";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
